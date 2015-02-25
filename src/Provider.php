@@ -12,7 +12,9 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('https://angel.co/api/oauth/authorize', $state);
+        return $this->buildAuthUrlFromBase(
+            'https://angel.co/api/oauth/authorize', $state
+        );
     }
 
     /**
@@ -28,7 +30,8 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function getUserByToken($token)
     {
-        $response = $this->getHttpClient()->get('https://api.angel.co/1/me?access_token='.$token, [
+        $response = $this->getHttpClient()->get(
+            'https://api.angel.co/1/me?access_token='.$token, [
             'headers' => [
                 'Authorization' => 'Bearer '.$token,
             ],
@@ -43,11 +46,8 @@ class Provider extends AbstractProvider implements ProviderInterface
     protected function mapUserToObject(array $user)
     {
         return (new User())->setRaw($user)->map([
-            'id'       => $user['id'],
-            'nickname' => null,
-            'name'     => $user['name'],
-            'email'    => null,
-            'avatar'   => $user['image'],
+            'id' => $user['id'], 'nickname' => null, 'name' => $user['name'],
+            'email' => null, 'avatar' => $user['image'],
         ]);
     }
 
@@ -56,6 +56,8 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function getTokenFields($code)
     {
-        return array_merge(parent::getTokenFields($code), ['grant_type' => 'authorization_code']);
+        return array_merge(parent::getTokenFields($code), [
+            'grant_type' => 'authorization_code',
+        ]);
     }
 }
