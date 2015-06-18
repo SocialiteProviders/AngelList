@@ -1,4 +1,5 @@
 <?php
+
 namespace SocialiteProviders\AngelList;
 
 use SocialiteProviders\Manager\SocialiteWasCalled;
